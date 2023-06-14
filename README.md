@@ -3,6 +3,7 @@ HouseTable - Full stack engineering exercise.
 
 ## Setup and compile the Backend
 - Go to the `backend` project directory
+- Copy the file `.env.template` and change the name of the copied file to `.env`
 - Run the follow command to install the project dependencies:
 
 ```
@@ -10,7 +11,7 @@ npm install
 ```
 
 - Create a postgres database on your computer
-- Set the database connection string in the .env file
+- Set the database connection string in the `.env` file
 - If you do not have sequelize installed on your computer, run:
 
 ```
@@ -31,6 +32,7 @@ npm start
 
 ## Setup and compile the Frontend
 - Go to the `frontend` project directory
+- Copy the file `.env.template` and change the name of the copied file to `.env`
 - Run the follow command to install the project dependencies:
 
 ```

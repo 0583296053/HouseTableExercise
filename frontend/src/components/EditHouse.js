@@ -8,7 +8,8 @@ const EditHouse = () => {
   const initialHouseState = {
     id: null,
     address: '',
-    currentValue: 0.0
+    currentValue: 0.0,
+    loanAmount: 0.0
   };
   const [house, setHouse] = useState(initialHouseState);
   const [message, setMessage] = useState('');
@@ -47,8 +48,8 @@ const EditHouse = () => {
 
   return (
     <div>
-      <div className='edit-form'>
-        <h4>House</h4>
+      <div className='submit-form'>
+        <h4>Edit House</h4>
         <form>
           <div className='form-group'>
             <label htmlFor='address'>Address</label>
@@ -72,11 +73,22 @@ const EditHouse = () => {
               onChange={handleInputChange}
             />
           </div>
+          <div className='form-group'>
+            <label htmlFor='loanAmount'>Loan Amount</label>
+            <input
+              type='number'
+              className='form-control'
+              id='loanAmount'
+              name='loanAmount'
+              value={house.loanAmount}
+              onChange={handleInputChange}
+            />
+          </div>
         </form>
 
         <button
           type='submit'
-          className='badge badge-success'
+          className='btn btn-success'
           onClick={updateHouse}
         >
           Update
@@ -84,8 +96,8 @@ const EditHouse = () => {
         <p>{message}</p>
 
         <Link
-          to={"/house/" + house.id}
-          className="badge badge-warning"
+          to={'/house/' + house.id}
+          className='btn btn-info'
         >
           Show House
         </Link>

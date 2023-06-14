@@ -6,7 +6,8 @@ const AddHouse = () => {
   const initialHouseState = {
     id: null,
     address: '',
-    currentValue: 0.0
+    currentValue: 0.0,
+    loanAmount: 0.0
   };
   const [house, setHouse] = useState(initialHouseState);
   const [submitted, setSubmitted] = useState(false);
@@ -19,7 +20,8 @@ const AddHouse = () => {
   const saveHouse = () => {
     var data = {
       address: house.address,
-      currentValue: house.currentValue
+      currentValue: house.currentValue,
+      loanAmount: house.loanAmount
     };
 
     HouseDataService.create(data)
@@ -27,7 +29,8 @@ const AddHouse = () => {
         setHouse({
           id: response.data.data.id,
           address: response.data.data.address,
-          currentValue: response.data.data.currentValue
+          currentValue: response.data.data.currentValue,
+          loanAmount: response.data.data.loanAmount
         });
         setSubmitted(true);
       })
@@ -38,14 +41,15 @@ const AddHouse = () => {
 
   return (
     <div className='submit-form'>
+      <h4>Add House</h4>
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
           <p>The house ID id: {house.id}</p>
 
           <Link
-            to={"/house/" + house.id}
-            className="badge badge-warning"
+            to={'/house/' + house.id}
+            className='btn btn-info'
           >
             Show House
           </Link>
@@ -75,6 +79,19 @@ const AddHouse = () => {
               value={house.currentValue}
               onChange={handleInputChange}
               name='currentValue'
+            />
+          </div>
+
+          <div className='form-group'>
+            <label htmlFor='loanAmount'>Loan Amount</label>
+            <input
+              type='number'
+              className='form-control'
+              id='loanAmount'
+              required
+              value={house.loanAmount}
+              onChange={handleInputChange}
+              name='loanAmount'
             />
           </div>
 

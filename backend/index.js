@@ -1,7 +1,7 @@
-require('dotenv').config()
-const express = require('express')
+require('dotenv').config();
+const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const house = require('./app/routes/house');
 
 const app = express();
@@ -19,5 +19,5 @@ app.get('*', function (req, res) {
 });
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
+  console.log(`Listening on port ${port}`);
 });

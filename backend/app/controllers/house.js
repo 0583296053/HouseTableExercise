@@ -1,6 +1,6 @@
 const db = require('../database/models');
-const { NotFoundError } = require('./helpers');
-const { riskCalculation } = require('./riskCalculation');
+const { NotFoundError } = require('./helpers/helpers');
+const { riskCalculation } = require('./helpers/riskCalculation');
 
 const HouseModel = db.House;
 
@@ -17,7 +17,7 @@ class House {
       const { address, currentValue, loanAmount } = body;
 
       // Calculate risk
-      const risk = riskCalculation(currentValue, loanAmount)
+      const risk = riskCalculation(currentValue, loanAmount);
 
       // Create a new house object
       const newHouse = { address, currentValue, loanAmount, risk };
@@ -57,35 +57,31 @@ class House {
   }
 
   async update(id, body) {
-    // Throw an error if there is no fields to update
-    if (!Object.keys(body).length) {
-      throw new Error(`There is no fields to update`);
-    }
-
-    const { address, currentValue, loanAmount } = body;
-
-    // Prepare the update fields
-    const updates = { address, currentValue, loanAmount };
-    Object.keys(updates).forEach(updateKey => {
-      if (updateKey === undefined) {
-        delete updates[updateKey];
-      }
-    })
-
-
-    // Recalculate risk if `currentValue` or `loanAmount` is updated
-    if (currentValue || loanAmount) { // ^
-      updates.risk = riskCalculation(currentValue, loanAmount)
-    }
-
-    let data;
-
-    // Update house in the database
     try {
-      data = await HouseModel.update(body, { where: { id } });
-      console.log('data: ', data);
+      // Throw an error if there is no fields to update
+      if (!Object.keys(body).length) {
+        throw new Error(`There is no fields to update`);
+      }
+
+      const { address, currentValue, loanAmount } = body;
+
+      // Prepare the update fields
+      const updates = { address, currentValue, loanAmount };
+      Object.keys(updates).forEach(updateKey => {
+        if (updateKey === undefined) {
+          delete updates[updateKey];
+        }
+      });
+
+      // Recalculate risk if `currentValue` or `loanAmount` are updated
+      if (updates.currentValue || updates.loanAmount) {
+        updates.risk = riskCalculation(currentValue, loanAmount);
+      }
+
+      // Update house in the database
+      const data = await HouseModel.update(updates, { where: { id } });
       if (data[0] !== 1) {
-        throw new Error('Cannot update HouseModel')
+        throw new Error('Cannot update HouseModel');
       }
     } catch (err) {
       throw new Error(`Error updating house with id=${id}: ${err.message}`);
@@ -105,6 +101,7 @@ const processHouseAction = async (req, res, action) => {
 
     const house = new House();
 
+    // Call the needed function by the action type
     switch (action) {
       case HouseActions.Create:
         result = await house.create(body);
@@ -125,11 +122,13 @@ const processHouseAction = async (req, res, action) => {
     const errMsg = `There is an error: ${err.message}`;
     console.log(errMsg);
 
+    // Send the result if was an error
     const status = err instanceof NotFoundError ? 404 : 500;
-    res.status(status).send(errMsg)
+    res.status(status).send(errMsg);
   }
 
-  res.send(result)
+  // Send the result if all success
+  res.send(result);
 };
 
 module.exports = {

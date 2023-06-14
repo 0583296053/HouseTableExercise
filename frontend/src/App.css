@@ -1,15 +1,17 @@
+.all {
+  padding-top: 100px;
+  text-align: center;
+  background-color: antiquewhite;
+  width: 100vw;
+  height: 100vh;
+}
+
 .list {
-  text-align: left;
   max-width: 750px;
   margin: auto;
 }
 
 .submit-form {
-  max-width: 300px;
-  margin: auto;
-}
-
-.edit-form {
-  max-width: 300px;
+  max-width: 750px;
   margin: auto;
 }

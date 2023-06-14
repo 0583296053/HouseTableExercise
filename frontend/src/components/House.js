@@ -63,7 +63,7 @@ const House = () => {
 
           <Link
             to={'/edit/' + currentHouse.id}
-            className='badge badge-warning'
+            className='btn btn-warning'
           >
             Edit
           </Link>
