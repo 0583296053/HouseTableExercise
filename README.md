@@ -11,6 +11,12 @@ npm install
 
 - Create a postgres database on your computer
 - Set the database connection string in the .env file
+- If you do not have sequelize installed on your computer, run:
+
+```
+npm install sequelize sequelize-cli pg pg-hstore
+```
+
 - Run the follow command to create the project table in the database
 
 ```
