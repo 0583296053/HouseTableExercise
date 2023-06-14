@@ -9,7 +9,7 @@ const riskCalculation = (currentValue, loanAmount) => {
   let risk = ratio(loanAmount, currentValue);
 
   // Convert the risk ratio to percentage
-  risk = ratio2Percentage(ratio(loanAmount, currentValue));
+  risk = ratio2Percentage(risk);
 
   // Increase the risk if the `loanAmount` is more than 50% of the `currentValue`
   if (percentage(loanAmount, currentValue) > 50) {
