@@ -8,7 +8,6 @@ HouseTable - Full stack engineering exercise.
 
 ```
 npm install
-# and then:
 npm start
 ```
 
@@ -18,7 +17,6 @@ npm start
 
 ```
 npm install
-# and then:
 npm start
 ```
 
